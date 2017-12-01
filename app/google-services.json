@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "375042025970",
+    "firebase_url": "https://trojanbooks-da5cd.firebaseio.com",
+    "project_id": "trojanbooks-da5cd",
+    "storage_bucket": "trojanbooks-da5cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375042025970:android:3b0d99071f5dc3c3",
+        "android_client_info": {
+          "package_name": "itp341.cherukuri.nikhil.trojanbooks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375042025970-uqbl3dk22bu8ju0md479ljvekpto6fp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "itp341.cherukuri.nikhil.trojanbooks",
+            "certificate_hash": "4b94891623ecd36e664ac75356dc79ba5315a8d3"
+          }
+        },
+        {
+          "client_id": "375042025970-rb7jgj351b964p882vbmao3872oi0vh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByGRV7PEl6EKeTTt5novdiJLjQEoPJWCc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375042025970-rb7jgj351b964p882vbmao3872oi0vh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
