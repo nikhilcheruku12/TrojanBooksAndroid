@@ -94,12 +94,24 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI (FirebaseUser user){
 
         if(user != null)
-        Toast.makeText(getApplicationContext(), user.getEmail(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You are sign in as: " + user.getEmail(), Toast.LENGTH_LONG).show();
+
+        if(user != null)
+        {
+            Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
+            startActivity(i);
+        }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
+        String email = acct.getEmail();
+        /*if(!email.endsWith("usc.edu")){
+            Toast.makeText(MainActivity.this, "Please sign in with a USC email",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }*/
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
