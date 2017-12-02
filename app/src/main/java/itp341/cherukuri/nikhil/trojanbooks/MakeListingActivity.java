@@ -35,7 +35,7 @@ public class MakeListingActivity extends AppCompatActivity {
     private EditText mBookInput;
     private TextView mTitleText;
     private TextView mAuthorText;
-
+    private  TextView mPriceText;
 
     /**
      * Initializes the activity.
@@ -51,6 +51,7 @@ public class MakeListingActivity extends AppCompatActivity {
         mBookInput = (EditText)findViewById(R.id.etISBN);
         mTitleText = (TextView)findViewById(R.id.textName);
         mAuthorText = (TextView)findViewById(R.id.textAuthor);
+        mPriceText = (TextView) findViewById(R.id.textPrice);
     }
 
     /**
@@ -75,7 +76,7 @@ public class MakeListingActivity extends AppCompatActivity {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
-            new FetchBook(mTitleText, mAuthorText, mBookInput).execute(queryString);
+            new FetchBook(mPriceText, mTitleText, mAuthorText, mBookInput).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {

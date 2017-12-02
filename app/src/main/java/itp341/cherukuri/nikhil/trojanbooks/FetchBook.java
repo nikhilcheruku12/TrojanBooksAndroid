@@ -46,15 +46,19 @@ public class FetchBook extends AsyncTask<String,Void,String> {
     private EditText mBookInput;
     private TextView mTitleText;
     private TextView mAuthorText;
+    private TextView mPriceText;
 
+    public static  final String priceAvailable = "FOR_SALE_AND_RENTAL";
+    public static  final String priceNotAvailable = "NOT_FOR_SALE";
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(TextView titleText, TextView authorText, EditText bookInput) {
+    public FetchBook(TextView priceText, TextView titleText, TextView authorText, EditText bookInput) {
         this.mTitleText = titleText;
         this.mAuthorText = authorText;
         this.mBookInput = bookInput;
+        this.mPriceText = priceText;
     }
 
 
@@ -165,19 +169,33 @@ public class FetchBook extends AsyncTask<String,Void,String> {
             int i = 0;
             String title = null;
             String authors = null;
-
+            String description = null;
+            String imageURL = null;
+            String price = null;
             // Look for results in the items array, exiting when both the title and author
             // are found or when all items have been checked.
             while (i < itemsArray.length() || (authors == null && title == null)) {
                 // Get the current item information.
                 JSONObject book = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
-
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                JSONObject saleInfo  = book.getJSONObject("saleInfo");
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
                     title = volumeInfo.getString("title");
                     authors = volumeInfo.getString("authors");
+                    description = volumeInfo.getString("description");
+                    imageURL = imageLinks.getString("thumbnail");
+
+                    String saleability = saleInfo.getString("saleability");
+
+                    if(saleability.equals(FetchBook.priceAvailable)){
+                        JSONObject listPrice = saleInfo.getJSONObject("listPrice");
+                        String amount = listPrice.getString("amount");
+                        String currencyCode = listPrice.getString("currencyCode");
+                        price = amount + " " + currencyCode;
+                    }
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -195,6 +213,12 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                 // If none are found, update the UI to show failed results.
                 mTitleText.setText(R.string.no_results);
                 mAuthorText.setText("");
+            }
+
+            if(price!=null){
+                mPriceText.setText(price);
+            } else{
+                mPriceText.setText("N/A");
             }
 
         } catch (Exception e){

@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="itp341.cherukuri.nikhil.trojanbooks.MakeListingActivity"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical"
-    android:layout_margin="@dimen/marginpadding">
+    android:layout_margin="@dimen/marginpadding"
+    android:background="@color/colorGold"
+    android:layout_centerInParent="true">
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint=" Enter ISBN Number"
-        android:inputType="number"
-        android:id="@+id/etISBN"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="70dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=" Enter ISBN Number"
+            android:inputType="number"
+            android:id="@+id/etISBN"
+            android:layout_marginBottom="@dimen/marginpadding"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textAuthor"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textAuthor"
+            android:layout_marginBottom="@dimen/marginpadding"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textName"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchButton"
-        android:onClick="searchBooks"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textName"
+            android:layout_marginBottom="@dimen/marginpadding"/>
 
-</android.support.v7.widget.LinearLayoutCompat>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textPrice"
+            android:layout_marginBottom="@dimen/marginpadding"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchButton"
+            android:onClick="searchBooks"
+            android:text="@string/next"
+            android:background="@color/cardinal"/>;
+    </LinearLayout>
+
+
+</RelativeLayout>

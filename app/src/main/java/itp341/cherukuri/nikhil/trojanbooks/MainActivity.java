@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI (FirebaseUser user){
 
         if(user != null)
-        Toast.makeText(getApplicationContext(), "You are sign in as: " + user.getEmail(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You are signed in as: " + user.getEmail(), Toast.LENGTH_LONG).show();
 
         if(user != null)
         {
