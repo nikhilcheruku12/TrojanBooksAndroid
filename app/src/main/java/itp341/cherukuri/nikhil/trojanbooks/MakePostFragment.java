@@ -15,8 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -141,6 +144,7 @@ public class MakePostFragment extends android.support.v4.app.Fragment {
             TextView textISBN = (TextView) convertView.findViewById(R.id.textISBN);
             TextView textAuthor = (TextView) convertView.findViewById(R.id.textAuthor);
             TextView textPrice = (TextView) convertView.findViewById(R.id.textPrice);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
             //step 3 -- get the new model data
             Book cs = getItem(position);      //getting the specified CS FROM the adapter
 
@@ -150,7 +154,9 @@ public class MakePostFragment extends android.support.v4.app.Fragment {
             textAuthor.setText(cs.getAuthors());
             textISBN.setText(cs.getISBN());
             textPrice.setText(cs.getPrice());
-
+            Picasso.with(getActivity().getApplicationContext()).
+                    load(cs.getImageURL()).
+                    into(imageView);
             return convertView;
         }
     }

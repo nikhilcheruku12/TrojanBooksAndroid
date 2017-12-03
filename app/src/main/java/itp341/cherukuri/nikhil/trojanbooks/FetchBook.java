@@ -214,7 +214,7 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                     price = "N/A";
                 }
 
-                Book book1 = new Book(ISBN, title, "", "", authors, price);
+                Book book1 = new Book(ISBN, title, "", "", authors, price, imageURL);
                 BookSingleton.getInstance().addBook(book1);
 
                 System.out.println(book1.toString());
@@ -223,56 +223,9 @@ public class FetchBook extends AsyncTask<String,Void,String> {
             }
 
             mMakeListingActivity.inflateFragment();
-            /*android.support.v4.app.FragmentManager fm = mMakeListingActivity.getSupportFragmentManager();
-            Fragment f = fm.findFragmentById(mMakeListingActivity.fragment_container_id);
 
-            if (f == null ) {
-                f = MakePostFragment.newInstance();
-            }
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(mMakeListingActivity.fragment_container_id, f);
-            fragmentTransaction.commit();*/
-
-           /* System.out.println( "Enters 1");
-            if (mFragment == null ) {
-                System.out.println( "Enters 2");
-                mFragment = MakePostFragment.newInstance();
-            }
-            System.out.println( "Enters 3");
-
-            FragmentTransaction fragmentTransaction = mfFragmentManager.beginTransaction();
-            fragmentTransaction.replace(mMakeListingActivity.fragment_container_id, mFragment);
-            fragmentTransaction.commit();
-            System.out.println( "Enters 4");
-*/
-            // System.out.print(book.toString() + '\n');
-
-//            // If both are found, display the result.
-//            if (title != null && authors != null){
-//                mTitleText.setText(title);
-//                mAuthorText.setText(authors);
-//                mBookInput.setText("");
-//            } else {
-//                // If none are found, update the UI to show failed results.
-//                mTitleText.setText(R.string.no_results);
-//                mAuthorText.setText("");
-//            }
-//
-//            if(price!=null){
-//                mPriceText.setText(price);
-//            } else{
-//                mPriceText.setText("N/A");
-//            }
 
         } catch (Exception e){
-            // If onPostExecute does not receive a proper JSON string,
-            // update the UI to show failed results.
-//
-
-
-
-
-
             e.printStackTrace();
         }
     }
