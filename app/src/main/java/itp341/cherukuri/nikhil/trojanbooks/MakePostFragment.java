@@ -85,9 +85,9 @@ public class MakePostFragment extends android.support.v4.app.Fragment {
                 //Intent i = new Intent(getActivity(), DetailActivity.class);
                 /*i.putExtra(EXTRA_POSITION, id);
                 startActivityForResult(i,0);*/
-                /*Intent i = new Intent(getActivity(),DetailActivity.class);
-                i.putExtra(DetailActivity.DETAILS_CODE,position);
-                startActivityForResult(i,1);*/
+                Intent i = new Intent(getActivity(),DetailsActivity.class);
+                i.putExtra(DetailsActivity.DETAILS_CODE,position);
+                startActivityForResult(i,1);
             }
         });
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="itp341.cherukuri.nikhil.trojanbooks.DetailsActivity"
+    android:layout_centerHorizontal="true">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/details_imageview"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/details_imageview"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/detailsBookName"
+        android:hint="Book Name"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailsBookName"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/detailsAuthorName"
+        android:hint="Author Name"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailsAuthorName"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/detailsISBN"
+        android:hint="ISBN"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailsISBN"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/detailsGooglePrice"
+        android:hint="Price on Google"
+        android:editable="false"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailsGooglePrice"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/detailsListPrice"
+        android:hint="List Price"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailsListPrice"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/classCode"
+        android:hint="Enter classes (Math 245, Math 225, etc.)"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/classCode"
+        android:id="@+id/buttonFinish"
+        android:text="Confirm"/>
+
+</RelativeLayout>

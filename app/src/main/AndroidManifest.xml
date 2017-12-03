@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="itp341.cherukuri.nikhil.trojanbooks">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -19,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Search_Listing" />
-        <activity android:name=".MakeListingActivity"></activity>
+        <activity android:name=".MakeListingActivity" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>

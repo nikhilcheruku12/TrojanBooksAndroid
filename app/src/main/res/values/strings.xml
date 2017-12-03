@@ -6,10 +6,12 @@
     <string name="next">Next</string>
 
     <string name="text_title">Title: </string>
-    <string name= "text_price">Estimated Price: </string>
+    <string name="text_price">Estimated Price: </string>
     <string name="text_ISBN">ISBN: </string>
     <string name="text_Author">Authors: </string>
-
+    <string name="button_finish"> Finish </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
