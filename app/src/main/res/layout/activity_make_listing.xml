@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,38 +8,22 @@
     tools:context="itp341.cherukuri.nikhil.trojanbooks.MakeListingActivity"
     android:layout_margin="@dimen/marginpadding"
     android:background="@color/colorGold"
-    android:layout_centerInParent="true">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="70dp">
+        android:orientation="horizontal"
+        >
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint=" Enter ISBN Number"
             android:inputType="number"
             android:id="@+id/etISBN"
             android:layout_marginBottom="@dimen/marginpadding"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textAuthor"
-            android:layout_marginBottom="@dimen/marginpadding"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textName"
-            android:layout_marginBottom="@dimen/marginpadding"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textPrice"
-            android:layout_marginBottom="@dimen/marginpadding"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,5 +33,11 @@
             android:background="@color/cardinal"/>;
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container">
 
-</RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

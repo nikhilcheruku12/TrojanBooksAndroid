@@ -19,6 +19,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -33,10 +35,7 @@ public class MakeListingActivity extends AppCompatActivity {
 
     // Variables for the search input field, and results TextViews.
     private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
-    private  TextView mPriceText;
-
+    public int fragment_container_id;
     /**
      * Initializes the activity.
      *
@@ -49,9 +48,8 @@ public class MakeListingActivity extends AppCompatActivity {
 
         // Initialize all the view variables.
         mBookInput = (EditText)findViewById(R.id.etISBN);
-        mTitleText = (TextView)findViewById(R.id.textName);
-        mAuthorText = (TextView)findViewById(R.id.textAuthor);
-        mPriceText = (TextView) findViewById(R.id.textPrice);
+        fragment_container_id = R.id.fragment_container;
+
     }
 
     /**
@@ -76,16 +74,18 @@ public class MakeListingActivity extends AppCompatActivity {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
-            new FetchBook(mPriceText, mTitleText, mAuthorText, mBookInput).execute(queryString);
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.fragment_container);
+            new FetchBook(mBookInput, this).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {
             if (queryString.length() == 0) {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_search_term);
+               /* mAuthorText.setText("");
+                mTitleText.setText(R.string.no_search_term);*/
             } else {
-                mAuthorText.setText("");
-                mTitleText.setText(R.string.no_network);
+                /*mAuthorText.setText("");
+                mTitleText.setText(R.string.no_network);*/
             }
         }
     }

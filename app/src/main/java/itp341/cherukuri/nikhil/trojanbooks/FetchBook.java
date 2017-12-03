@@ -19,10 +19,14 @@ package itp341.cherukuri.nikhil.trojanbooks;
  * limitations under the License.
  */
 
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,21 +48,18 @@ public class FetchBook extends AsyncTask<String,Void,String> {
 
     // Variables for the search input field, and results TextViews
     private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
-    private TextView mPriceText;
 
+    private MakeListingActivity mMakeListingActivity;
     public static  final String priceAvailable = "FOR_SALE_AND_RENTAL";
     public static  final String priceNotAvailable = "NOT_FOR_SALE";
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(TextView priceText, TextView titleText, TextView authorText, EditText bookInput) {
-        this.mTitleText = titleText;
-        this.mAuthorText = authorText;
+    public FetchBook(EditText bookInput, MakeListingActivity activity) {
         this.mBookInput = bookInput;
-        this.mPriceText = priceText;
+
+        this.mMakeListingActivity = activity;
     }
 
 
@@ -169,9 +170,10 @@ public class FetchBook extends AsyncTask<String,Void,String> {
             int i = 0;
             String title = null;
             String authors = null;
-            String description = null;
+            //String description = null;
             String imageURL = null;
             String price = null;
+            String ISBN = null;
             // Look for results in the items array, exiting when both the title and author
             // are found or when all items have been checked.
             while (i < itemsArray.length() || (authors == null && title == null)) {
@@ -180,12 +182,13 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                 JSONObject saleInfo  = book.getJSONObject("saleInfo");
+                JSONArray industryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
                     title = volumeInfo.getString("title");
                     authors = volumeInfo.getString("authors");
-                    description = volumeInfo.getString("description");
+                    //description = volumeInfo.getString("description");
                     imageURL = imageLinks.getString("thumbnail");
 
                     String saleability = saleInfo.getString("saleability");
@@ -196,36 +199,79 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                         String currencyCode = listPrice.getString("currencyCode");
                         price = amount + " " + currencyCode;
                     }
+
+                    JSONObject ISBN13info = industryIdentifiers.getJSONObject(0);
+                    ISBN = ISBN13info.getString("identifier");
                 } catch (Exception e){
                     e.printStackTrace();
                 }
 
+                if (title == null || authors == null){
+                    title = "No Results Found";
+                    authors = "N/A";
+                    price = "N/A";
+                } else if (price == null){
+                    price = "N/A";
+                }
+
+                Book book1 = new Book(ISBN, title, "", "", authors, price);
+                BookSingleton.getInstance().addBook(book1);
+
+                System.out.println(book1.toString());
                 // Move to the next item.
                 i++;
             }
 
-            // If both are found, display the result.
-            if (title != null && authors != null){
-                mTitleText.setText(title);
-                mAuthorText.setText(authors);
-                mBookInput.setText("");
-            } else {
-                // If none are found, update the UI to show failed results.
-                mTitleText.setText(R.string.no_results);
-                mAuthorText.setText("");
-            }
+            android.support.v4.app.FragmentManager fm = mMakeListingActivity.getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(mMakeListingActivity.fragment_container_id);
 
-            if(price!=null){
-                mPriceText.setText(price);
-            } else{
-                mPriceText.setText("N/A");
+            if (f == null ) {
+                f = MakePostFragment.newInstance();
             }
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(mMakeListingActivity.fragment_container_id, f);
+            fragmentTransaction.commit();
+
+           /* System.out.println( "Enters 1");
+            if (mFragment == null ) {
+                System.out.println( "Enters 2");
+                mFragment = MakePostFragment.newInstance();
+            }
+            System.out.println( "Enters 3");
+
+            FragmentTransaction fragmentTransaction = mfFragmentManager.beginTransaction();
+            fragmentTransaction.replace(mMakeListingActivity.fragment_container_id, mFragment);
+            fragmentTransaction.commit();
+            System.out.println( "Enters 4");
+*/
+            // System.out.print(book.toString() + '\n');
+
+//            // If both are found, display the result.
+//            if (title != null && authors != null){
+//                mTitleText.setText(title);
+//                mAuthorText.setText(authors);
+//                mBookInput.setText("");
+//            } else {
+//                // If none are found, update the UI to show failed results.
+//                mTitleText.setText(R.string.no_results);
+//                mAuthorText.setText("");
+//            }
+//
+//            if(price!=null){
+//                mPriceText.setText(price);
+//            } else{
+//                mPriceText.setText("N/A");
+//            }
 
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            mTitleText.setText(R.string.no_results);
-            mAuthorText.setText("");
+//
+
+
+
+
+
             e.printStackTrace();
         }
     }

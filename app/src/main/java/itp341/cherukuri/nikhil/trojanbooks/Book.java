@@ -1,3 +1,5 @@
+package itp341.cherukuri.nikhil.trojanbooks;
+
 import java.util.Arrays;
 
 /**
@@ -9,14 +11,16 @@ public class Book {
     String name;
     String classCode;
     String classNum;
-    String[] Authors;
+    String Authors;
+    String price;
 
-    public Book(String ISBN, String name, String classCode, String classNum, String[] authors) {
+    public Book(String ISBN, String name, String classCode, String classNum, String authors, String price) {
         this.ISBN = ISBN;
         this.name = name;
         this.classCode = classCode;
         this.classNum = classNum;
         Authors = authors;
+        this.price = price;
     }
 
     public String getISBN() {
@@ -51,12 +55,20 @@ public class Book {
         this.classNum = classNum;
     }
 
-    public String[] getAuthors() {
+    public String getAuthors() {
         return Authors;
     }
 
-    public void setAuthors(String[] authors) {
+    public void setAuthors(String authors) {
         Authors = authors;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     @Override
@@ -66,7 +78,10 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", classCode='" + classCode + '\'' +
                 ", classNum='" + classNum + '\'' +
-                ", Authors=" + Arrays.toString(Authors) +
-                '}';
+                ", Authors=" + Authors +
+                '}' +
+                ". price=" + price;
     }
+
+
 }
