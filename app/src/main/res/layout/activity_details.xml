@@ -51,7 +51,8 @@
         android:layout_below="@+id/detailsGooglePrice"
         android:layout_centerHorizontal="true"
         android:id="@+id/detailsListPrice"
-        android:hint="List Price"/>
+        android:inputType="number"
+        android:hint="List Price (USD):"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -65,8 +66,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/classCode"
+        android:layout_below="@+id/radioGroup"
         android:id="@+id/buttonFinish"
         android:text="Confirm"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/classCode"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selling"
+            android:layout_weight="1"
+            android:checked="true"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buying"
+            android:layout_weight="1"
+            android:id="@+id/buyingButton"/>
+
+    </RadioGroup>
 
 </RelativeLayout>
