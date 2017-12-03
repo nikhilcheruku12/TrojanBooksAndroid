@@ -222,7 +222,8 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                 i++;
             }
 
-            android.support.v4.app.FragmentManager fm = mMakeListingActivity.getSupportFragmentManager();
+            mMakeListingActivity.inflateFragment();
+            /*android.support.v4.app.FragmentManager fm = mMakeListingActivity.getSupportFragmentManager();
             Fragment f = fm.findFragmentById(mMakeListingActivity.fragment_container_id);
 
             if (f == null ) {
@@ -230,7 +231,7 @@ public class FetchBook extends AsyncTask<String,Void,String> {
             }
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(mMakeListingActivity.fragment_container_id, f);
-            fragmentTransaction.commit();
+            fragmentTransaction.commit();*/
 
            /* System.out.println( "Enters 1");
             if (mFragment == null ) {

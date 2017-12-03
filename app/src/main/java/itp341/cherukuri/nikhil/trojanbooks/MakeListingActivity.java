@@ -21,6 +21,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -50,6 +51,18 @@ public class MakeListingActivity extends AppCompatActivity {
         mBookInput = (EditText)findViewById(R.id.etISBN);
         fragment_container_id = R.id.fragment_container;
 
+    }
+
+    public  void inflateFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment f = fm.findFragmentById(R.id.fragment_container);
+
+        if (f == null ) {
+            f = MakePostFragment.newInstance();
+        }
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, f);
+        fragmentTransaction.commit();
     }
 
     /**
