@@ -7,11 +7,28 @@
     tools:context="itp341.cherukuri.nikhil.trojanbooks.DetailsActivity"
     android:layout_centerHorizontal="true">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detailsToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:subtitleTextColor="@color/colorWhite"
+        app:titleTextColor="@color/colorWhite" />
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/detailsToolBar"
+        app:accentColor="@color/colorAccent"
+        app:primaryColor="#4CAF50" />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/details_imageview"/>
+        android:id="@+id/details_imageview"
+        android:layout_below="@id/tabHost"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

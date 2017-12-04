@@ -17,4 +17,9 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
 
+    <string name="search_string">Search by book name, class code, ISBN</string>
+
+    <string name="text_transaction_type">Transaction Type: </string>
+    <string name="text_contact_info">Contact Info: </string>
+    <string name="text_list_price">Price: </string>
 </resources>

@@ -16,6 +16,7 @@
 package itp341.cherukuri.nikhil.trojanbooks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -160,6 +161,8 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         //viewPager.setCurrentItem(materialTab.getPosition());
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, ShowListingsActivity.class);
+        startActivity(i);
     }
 
     //tab on reselected

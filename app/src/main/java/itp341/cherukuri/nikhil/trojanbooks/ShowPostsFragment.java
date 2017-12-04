@@ -1,0 +1,189 @@
+package itp341.cherukuri.nikhil.trojanbooks;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class ShowPostsFragment extends android.support.v4.app.Fragment {
+
+    private static final String TAG =ShowPostsFragment.class.getSimpleName();
+    public static final String EXTRA_POSITION = "extra_position";      //key for the intent extra
+
+    Button buttonAdd;
+    ListView listView;
+    DatabaseReference mDatabase;
+    DatabaseReference mListItemRef;
+    //TODO create array and adapter
+//    private ArrayAdapter<CoffeeShop> adapter;
+    private BookAdapter adapter;
+
+    public ShowPostsFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static ShowPostsFragment newInstance() {
+        Bundle args = new Bundle();
+        System.out.println("Enters makePosFragemnt1");
+        ShowPostsFragment f = new ShowPostsFragment();
+        f.setArguments(args);
+
+        System.out.println("Enters makePosFragemnt2");
+        return f;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_make_post, container, false);
+
+        System.out.println("Enters makePosFragemnt3");
+        Log.d(TAG, "onCreateView");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mListItemRef = mDatabase.child("listing");
+        //find views
+        //buttonAdd = (Button) v.findViewById(R.id.button_add);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Listing post = dataSnapshot.getValue(Listing.class);
+                System.out.println(post);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        listView = (ListView)v.findViewById(R.id.listView);
+
+
+
+        //TODO access coffee shop list and load it in the list
+        List<Listing> listings = new ArrayList<>();
+        System.out.println("listings size = " + listings.size());
+//        adapter = new ArrayAdapter<CoffeeShop>(getContext(), android.R.layout.simple_list_item_1, shops);
+        adapter = new BookAdapter(getActivity(), R.layout.post_row, listings);
+        listView.setAdapter(adapter);
+
+
+
+        //TODO create listview item click listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.d(TAG, "listView: onListItemClick");
+                //launch the detail activity
+                //pass in the position
+                //Intent i = new Intent(getActivity(), DetailActivity.class);
+                /*i.putExtra(EXTRA_POSITION, id);
+                startActivityForResult(i,0);*/
+                Intent i = new Intent(getActivity(),DetailsActivity.class);
+                i.putExtra(DetailsActivity.DETAILS_CODE,position);
+                startActivityForResult(i,1);
+            }
+        });
+
+        return v;
+    }
+
+
+
+
+    //TODO finish onActivityResult
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: requestCode: " + requestCode);
+
+        if (resultCode == Activity.RESULT_OK) {
+            // this means user hit SAVE so we need to refresh
+            //get the NEW data from SugarORM
+            adapter.clear();    //get rid of current data
+            List<Listing> shops = new ArrayList<>();
+            adapter.addAll(shops);
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+    private class BookAdapter extends ArrayAdapter<Listing> {
+        //if youre using an adapter with ANY database, typically you need an id
+
+
+
+        //default constructor
+        //this you do EVERY time--almost always the same way
+        public BookAdapter(Context c, int resId, List<Listing> shops) {
+            super(c, resId, shops);
+        }
+
+        //getview generates A SINGLE ROW
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            //step 1 -- inflate view (row) if necessary
+            if (convertView == null) {      //this means row has NEVER been created
+                convertView = getActivity().getLayoutInflater().inflate(
+                        R.layout.post_row,
+                        null
+                );
+            }
+            //step 2 -- get references to XML views in the row
+            //TextView textName = (TextView) convertView.findViewById(R.id.list_row_name);
+            //TextView textCity = (TextView) convertView.findViewById(R.id.list_row_city);
+
+            TextView textTitle = (TextView) convertView.findViewById(R.id.textBookName);
+            TextView textISBN = (TextView) convertView.findViewById(R.id.textISBN);
+            TextView textAuthor = (TextView) convertView.findViewById(R.id.textAuthor);
+            TextView textPrice = (TextView) convertView.findViewById(R.id.textPrice);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            TextView textListPrice = (TextView) convertView.findViewById(R.id.text_list_price);
+            TextView textContactInfo = (TextView) convertView.findViewById(R.id.text_contact_info);
+            TextView textTransactionType = (TextView) convertView.findViewById(R.id.text_transaction_type);
+            //step 3 -- get the new model data
+            Listing listing = getItem(position);      //getting the specified CS FROM the adapter
+
+            //step 4 -- load the data from the model to the view
+            textTitle.setText(listing.getBookName());
+            //extCity.setText("" + Listing.genres[cs.getGenre()]);
+            textAuthor.setText(listing.getAuhtorName());
+            textISBN.setText(listing.getISBN());
+            textPrice.setText(listing.getPriceOnGoogle());
+            Picasso.with(getActivity().getApplicationContext()).
+                    load(listing.getImageURL()).
+                    into(imageView);
+            textListPrice.setText(listing.getListPrice());
+            textContactInfo.setText(listing.getUserID());
+            return convertView;
+        }
+    }
+}

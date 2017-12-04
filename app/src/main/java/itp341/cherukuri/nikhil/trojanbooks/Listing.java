@@ -27,6 +27,9 @@ public class Listing {
         this.userID = userID;
     }
 
+    public Listing (){
+
+    }
     public String getBookName() {
         return bookName;
     }

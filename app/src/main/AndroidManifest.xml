@@ -22,7 +22,8 @@
         <activity android:name=".Search_Listing" />
         <activity android:name=".MakeListingActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".TabbedActivity"></activity>
+        <activity android:name=".TabbedActivity" />
+        <activity android:name=".ShowListingsActivity"></activity>
     </application>
 
 </manifest>
