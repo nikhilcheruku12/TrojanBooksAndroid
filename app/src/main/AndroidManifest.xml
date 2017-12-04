@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".Search_Listing" />
         <activity android:name=".MakeListingActivity" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".TabbedActivity"></activity>
     </application>
 
 </manifest>

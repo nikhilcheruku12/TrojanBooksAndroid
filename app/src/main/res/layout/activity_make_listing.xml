@@ -6,9 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="itp341.cherukuri.nikhil.trojanbooks.MakeListingActivity"
-    android:layout_margin="@dimen/marginpadding"
+    android:layout_margin="0dp"
     android:background="@color/colorGold"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:subtitleTextColor="@color/colorWhite"
+        app:titleTextColor="@color/colorWhite" />
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/toolBar"
+        app:accentColor="@color/colorAccent"
+        app:primaryColor="#4CAF50" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabHost" />
 
     <LinearLayout
         android:layout_width="match_parent"

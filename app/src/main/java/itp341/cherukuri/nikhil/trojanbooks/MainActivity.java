@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(user != null)
         {
-            Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
-            startActivity(i);
+           /* Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
+            startActivity(i);*/
+           Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
+           startActivity(i);
         }
     }
 

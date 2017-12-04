@@ -91,6 +91,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 Listing listing = new Listing(bookName,authorName,ISBN,googlePrice,listPrice,classCode, imageUrl,buying, userID);
                 mDatabase.child("listings").child(userID).setValue(listing);
+                finish();
             }
         });
     }
