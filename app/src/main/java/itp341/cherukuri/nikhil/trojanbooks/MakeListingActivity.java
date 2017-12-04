@@ -33,6 +33,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -50,7 +51,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     public int fragment_container_id;
 
     MaterialTabHost tabHost;
-    ViewPager viewPager;
+    //ViewPager viewPager;
     ViewPagerAdapter androidAdapter;
     Toolbar toolBar;
     /**
@@ -78,17 +79,17 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
 
         //tab host
         tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
-        viewPager = (ViewPager) this.findViewById(R.id.viewPager);
+       // viewPager = (ViewPager) this.findViewById(R.id.viewPager);
 
         //adapter view
         androidAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(androidAdapter);
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int tabposition) {
-                tabHost.setSelectedNavigationItem(tabposition);
-            }
-        });
+       // viewPager.setAdapter(androidAdapter);
+//        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int tabposition) {
+//                tabHost.setSelectedNavigationItem(tabposition);
+//            }
+//        });
 
         //for tab position
         for (int i = 1; i < androidAdapter.getCount(); i++) {
@@ -156,19 +157,23 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     @Override
     public void onTabSelected(MaterialTab materialTab) {
 
-        viewPager.setCurrentItem(materialTab.getPosition());
+        //viewPager.setCurrentItem(materialTab.getPosition());
+        int pos = materialTab.getPosition();
+        Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
     }
 
     //tab on reselected
     @Override
     public void onTabReselected(MaterialTab materialTab) {
-
+        int pos = materialTab.getPosition();
+        Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
     }
 
     //tab on unselected
     @Override
     public void onTabUnselected(MaterialTab materialTab) {
-
+        int pos = materialTab.getPosition();
+        Toast.makeText(getApplicationContext(), "Unselected Pos = " + pos, Toast.LENGTH_LONG).show();
     }
 
     // view pager adapter
@@ -184,7 +189,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
 
         @Override
         public int getCount() {
-            return 8;
+            return 4;
         }
 
         @Override

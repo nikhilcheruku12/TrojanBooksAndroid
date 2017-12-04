@@ -28,11 +28,7 @@
         app:accentColor="@color/colorAccent"
         app:primaryColor="#4CAF50" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tabHost" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
