@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -153,7 +154,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        /*mDatabase = FirebaseDatabase.getInstance().getReference();
         mListItemRef = mDatabase.child("listings");
         //find views
         //buttonAdd = (Button) v.findViewById(R.id.button_add);
@@ -199,7 +200,9 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 
 
 
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 
     //TODO finish onActivityResult
@@ -248,11 +251,19 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
             textAuthor.setText(listing.getAuhtorName());
             textISBN.setText(listing.getISBN());
             textPrice.setText(listing.getPriceOnGoogle());
+            String type = null;
+            if(listing.isBuying()){
+                type = "Buying";
+            } else{
+                type = "Selling";
+            }
+
+            textTransactionType.setText(type);
             Picasso.with(getActivity().getApplicationContext()).
                     load(listing.getImageURL()).
                     into(imageView);
             textListPrice.setText(listing.getListPrice());
-            textContactInfo.setText(listing.getUserID());
+            textContactInfo.setText(listing.getUserEmail());
             return convertView;
         }
     }

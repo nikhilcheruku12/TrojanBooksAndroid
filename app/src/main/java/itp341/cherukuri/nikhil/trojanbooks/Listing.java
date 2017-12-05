@@ -14,8 +14,8 @@ public class Listing {
     private String imageURL;
     public String userID;
     private boolean buying;
-
-    public Listing(String bookName, String auhtorName, String ISBN, String priceOnGoogle, String listPrice, String classCode, String imageURL, boolean buying, String userID) {
+    public String userEmail;
+    public Listing(String bookName, String auhtorName, String ISBN, String priceOnGoogle, String listPrice, String classCode, String imageURL, boolean buying, String userID, String userEmail) {
         this.bookName = bookName;
         this.auhtorName = auhtorName;
         this.ISBN = ISBN;
@@ -25,6 +25,7 @@ public class Listing {
         this.imageURL = imageURL;
         this.buying = buying;
         this.userID = userID;
+        this.userEmail = userEmail;
     }
 
     public Listing (){
@@ -102,6 +103,14 @@ public class Listing {
         this.userID = userID;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     @Override
     public String toString() {
         return "Listing{" +
@@ -112,8 +121,9 @@ public class Listing {
                 ", listPrice='" + listPrice + '\'' +
                 ", classCode='" + classCode + '\'' +
                 ", imageURL='" + imageURL + '\'' +
-                ", buying=" + buying + '\'' +
-                ", userID=" + userID +
+                ", userID='" + userID + '\'' +
+                ", buying=" + buying +
+                ", userEmail='" + userEmail + '\'' +
                 '}';
     }
 }

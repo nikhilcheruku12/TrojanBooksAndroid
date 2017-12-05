@@ -89,6 +89,7 @@ public class DetailsActivity extends AppCompatActivity  {
                 String imageUrl = book.getImageURL();
                 boolean buying = (group.getCheckedRadioButtonId() == R.id.buyingButton);
                 String userID = user.getUid();
+                String email = user.getEmail();
                 if(listPrice.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please List the price that you want to sell at", Toast.LENGTH_LONG).show();
                     return;
@@ -97,7 +98,7 @@ public class DetailsActivity extends AppCompatActivity  {
                 if(classCode.isEmpty())
                     classCode = "N/A";
 
-                Listing listing = new Listing(bookName,authorName,ISBN,googlePrice,listPrice,classCode, imageUrl,buying, userID);
+                Listing listing = new Listing(bookName,authorName,ISBN,googlePrice,listPrice,classCode, imageUrl,buying, userID, email);
                // mDatabase.child("listings").child(userID).setValue(listing);
 
                 DatabaseReference postsRef = mDatabase.child("listings");
