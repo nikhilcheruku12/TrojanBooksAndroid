@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="itp341.cherukuri.nikhil.trojanbooks.MakeListingActivity"
     android:layout_margin="0dp"
-    android:background="@color/colorGold"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
@@ -26,7 +25,7 @@
         android:layout_height="48dp"
         android:layout_below="@+id/toolBar"
         app:accentColor="@color/colorAccent"
-        app:primaryColor="#4CAF50" />
+        app:primaryColor="@color/colorPrimary" />
 
 
 
@@ -48,8 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/searchButton"
             android:onClick="searchBooks"
-            android:text="@string/next"
-            android:background="@color/cardinal"/>;
+            android:text="@string/next" />;
     </LinearLayout>
 
     <FrameLayout

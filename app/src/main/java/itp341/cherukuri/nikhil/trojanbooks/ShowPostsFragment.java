@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +42,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     DatabaseReference mDatabase;
     DatabaseReference mListItemRef;
     List<Listing> listings;
+    String mParam1 = null;
     //TODO create array and adapter
 //    private ArrayAdapter<CoffeeShop> adapter;
     private BookAdapter adapter;
@@ -61,6 +63,14 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString("params");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_make_post, container, false);
@@ -72,7 +82,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         mListItemRef = mDatabase.child("listings");
         //find views
         //buttonAdd = (Button) v.findViewById(R.id.button_add);
-        System.out.println(mListItemRef.toString());
+        System.out.println(" mListItemRedf: " + mListItemRef.toString());
         listings = new ArrayList<>();
         mListItemRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,10 +92,18 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
                     Listing listing = snapShot.getValue(Listing.class);
+                    if(mParam1 == null)
                     listings.add(listing);
+
+                    /*else{
+                        if(listing.getUserID().equals( FirebaseAuth.getInstance().getCurrentUser().getUid() )){
+                            listings.add(listing);
+                        }
+                    }*/
                     Log.d("OwnerPastListActivity","Booking Snapshot called");
                     System.out.println(listing);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -104,7 +122,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         adapter = new BookAdapter(getActivity(), R.layout.post_row, listings);
         listView.setAdapter(adapter);
 
-
+        adapter.notifyDataSetChanged();
 
         //TODO create listview item click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,21 +147,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 
 
     //TODO finish onActivityResult
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode: " + requestCode);
 
-        if (resultCode == Activity.RESULT_OK) {
-            // this means user hit SAVE so we need to refresh
-            //get the NEW data from SugarORM
-            adapter.clear();    //get rid of current data
-            List<Listing> shops = new ArrayList<>();
-            adapter.addAll(shops);
-            adapter.notifyDataSetChanged();
-        }
-
-    }
     private class BookAdapter extends ArrayAdapter<Listing> {
         //if youre using an adapter with ANY database, typically you need an id
 

@@ -105,11 +105,11 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
 
     public  void inflateFragment(){
         FragmentManager fm = getSupportFragmentManager();
-        Fragment f = fm.findFragmentById(R.id.fragment_container);
+        //Fragment f = fm.findFragmentById(R.id.fragment_container);
 
-        if (f == null ) {
-            f = MakePostFragment.newInstance();
-        }
+
+        Fragment  f = MakePostFragment.newInstance();
+
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, f);
         fragmentTransaction.commit();
@@ -122,6 +122,8 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
      */
     public void searchBooks(View view) {
         // Get the search string from the input field.
+
+        BookSingleton.getInstance().erase();
         String queryString = mBookInput.getText().toString();
 
         // Hide the keyboard when the button is pushed.
@@ -161,8 +163,36 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         //viewPager.setCurrentItem(materialTab.getPosition());
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
-        Intent i = new Intent(this, ShowListingsActivity.class);
-        startActivity(i);
+        if( pos == 1){
+            Intent i = new Intent(this, ShowListingsActivity.class);
+            startActivity(i);
+        } else if (pos == 2){
+
+            /*Bundle bundle = new Bundle();
+            bundle.putString("params", "My String data");
+// set MyFragment Arguments
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.fragment_container);
+
+            if (f == null ) {
+                f = MakePostFragment.newInstance();
+            }
+            f.setArguments(bundle);
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, f);
+            fragmentTransaction.commit();*/
+
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.fragment_container);
+
+
+                f = ShowPostsFragment.newInstance();
+
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, f);
+            fragmentTransaction.commit();
+        }
+
     }
 
     //tab on reselected
@@ -170,6 +200,34 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     public void onTabReselected(MaterialTab materialTab) {
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
+        if( pos == 1){
+            Intent i = new Intent(this, ShowListingsActivity.class);
+            startActivity(i);
+        } else if (pos == 2){
+
+            /*Bundle bundle = new Bundle();
+            bundle.putString("params", "My String data");
+
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.fragment_container);
+            f.setArguments(bundle);
+            if (f == null ) {
+                f = MakePostFragment.newInstance();
+            }
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, f);
+            fragmentTransaction.commit();*/
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.fragment_container);
+
+            //if (f == null ) {
+                f = ShowPostsFragment.newInstance();
+            //}
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, f);
+            fragmentTransaction.commit();
+
+        }
     }
 
     //tab on unselected
@@ -197,7 +255,13 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
 
         @Override
         public CharSequence getPageTitle(int tabposition) {
-            return "Tab " + tabposition;
+            if(tabposition == 1){
+                return "Make Post";
+            } else if (tabposition == 2){
+                return "Search Posts";
+            } else{
+                return "My Posts";
+            }
         }
     }
 }
