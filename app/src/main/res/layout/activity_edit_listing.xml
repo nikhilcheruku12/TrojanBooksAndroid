@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itp341.cherukuri.nikhil.trojanbooks.DetailsActivity"
+    tools:context="itp341.cherukuri.nikhil.trojanbooks.EditListingActivity"
     android:layout_centerHorizontal="true">
 
 
@@ -71,7 +70,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/radioGroup"
         android:id="@+id/buttonFinish"
-        android:text="Confirm"/>
+        android:text="@string/save_button"/>
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -85,7 +84,8 @@
             android:layout_height="wrap_content"
             android:text="Selling"
             android:layout_weight="1"
-            android:checked="true"/>
+            android:checked="true"
+            android:id="@+id/sellingButton"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,5 +94,13 @@
             android:id="@+id/buyingButton"/>
 
     </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonFinish"
+        android:text="@string/delete_button"
+        android:background="@color/cardinal"
+        android:id="@+id/deleteButton"/>
 
 </RelativeLayout>

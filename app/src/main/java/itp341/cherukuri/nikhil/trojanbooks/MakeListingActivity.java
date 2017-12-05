@@ -164,30 +164,25 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
         if( pos == 1){
-            Intent i = new Intent(this, ShowListingsActivity.class);
-            startActivity(i);
-        } else if (pos == 2){
-
-            /*Bundle bundle = new Bundle();
-            bundle.putString("params", "My String data");
-// set MyFragment Arguments
+//            Intent i = new Intent(this, ShowListingsActivity.class);
+//            startActivity(i);
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
-            if (f == null ) {
-                f = MakePostFragment.newInstance();
-            }
-            f.setArguments(bundle);
+            //if (f == null ) {
+            f = ShowPostsFragment.newInstance();
+            //}
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, f);
-            fragmentTransaction.commit();*/
+            fragmentTransaction.commit();
+        } else if (pos == 2){
 
+            Bundle bundle = new Bundle();
+            bundle.putString("params", "My String data");
             FragmentManager fm = getSupportFragmentManager();
-            Fragment f = fm.findFragmentById(R.id.fragment_container);
 
-
-                f = ShowPostsFragment.newInstance();
-
+            Fragment   f = ShowPostsFragment.newInstance();
+            f.setArguments(bundle);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, f);
             fragmentTransaction.commit();
@@ -201,28 +196,24 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
         if( pos == 1){
-            Intent i = new Intent(this, ShowListingsActivity.class);
-            startActivity(i);
-        } else if (pos == 2){
-
-            /*Bundle bundle = new Bundle();
-            bundle.putString("params", "My String data");
-
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment f = fm.findFragmentById(R.id.fragment_container);
-            f.setArguments(bundle);
-            if (f == null ) {
-                f = MakePostFragment.newInstance();
-            }
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, f);
-            fragmentTransaction.commit();*/
+//            Intent i = new Intent(this, ShowListingsActivity.class);
+//            startActivity(i);
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
             //if (f == null ) {
-                f = ShowPostsFragment.newInstance();
+            f = ShowPostsFragment.newInstance();
             //}
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, f);
+            fragmentTransaction.commit();
+        } else if (pos == 2){
+            Bundle bundle = new Bundle();
+            bundle.putString("params", "My String data");
+            FragmentManager fm = getSupportFragmentManager();
+
+            Fragment   f = ShowPostsFragment.newInstance();
+            f.setArguments(bundle);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, f);
             fragmentTransaction.commit();

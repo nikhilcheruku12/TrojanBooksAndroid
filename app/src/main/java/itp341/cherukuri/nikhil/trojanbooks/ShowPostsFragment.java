@@ -42,6 +42,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     DatabaseReference mDatabase;
     DatabaseReference mListItemRef;
     List<Listing> listings;
+    List<String> listingID;
     String mParam1 = null;
     //TODO create array and adapter
 //    private ArrayAdapter<CoffeeShop> adapter;
@@ -84,22 +85,27 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         //buttonAdd = (Button) v.findViewById(R.id.button_add);
         System.out.println(" mListItemRedf: " + mListItemRef.toString());
         listings = new ArrayList<>();
+        listingID = new ArrayList<>();
         mListItemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                // Listing post = dataSnapshot.getValue(Listing.class);
                 //System.out.println(post);
-
+                //listings = new ArrayList<>();
+                //listingID = new ArrayList<>();
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
                     Listing listing = snapShot.getValue(Listing.class);
-                    if(mParam1 == null)
-                    listings.add(listing);
+                    if(mParam1 == null){
+                        listings.add(listing);
+                        listingID.add(snapShot.getKey());
+                    }
 
-                    /*else{
+                    else{
                         if(listing.getUserID().equals( FirebaseAuth.getInstance().getCurrentUser().getUid() )){
                             listings.add(listing);
+                            listingID.add(snapShot.getKey());
                         }
-                    }*/
+                    }
                     Log.d("OwnerPastListActivity","Booking Snapshot called");
                     System.out.println(listing);
                 }
@@ -134,8 +140,9 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
                 //Intent i = new Intent(getActivity(), DetailActivity.class);
                 /*i.putExtra(EXTRA_POSITION, id);
                 startActivityForResult(i,0);*/
-                Intent i = new Intent(getActivity(),DetailsActivity.class);
-                i.putExtra(DetailsActivity.DETAILS_CODE,position);
+                ListingSingleton.getInstance().setListing(listings.get(position));
+                ListingSingleton.getInstance().setListingID(listingID.get(position));
+                Intent i = new Intent(getActivity(),EditListingActivity.class);
                 startActivityForResult(i,1);
             }
         });
@@ -143,8 +150,57 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mListItemRef = mDatabase.child("listings");
+        //find views
+        //buttonAdd = (Button) v.findViewById(R.id.button_add);
+        System.out.println(" mListItemRedf: " + mListItemRef.toString());
+        listings = new ArrayList<>();
+        listingID = new ArrayList<>();
+        mListItemRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Listing post = dataSnapshot.getValue(Listing.class);
+                //System.out.println(post);
+                //listings = new ArrayList<>();
+                //listingID = new ArrayList<>();
+                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                    Listing listing = snapShot.getValue(Listing.class);
+                    if(mParam1 == null){
+                        listings.add(listing);
+                        listingID.add(snapShot.getKey());
+                    }
+
+                    else{
+                        if(listing.getUserID().equals( FirebaseAuth.getInstance().getCurrentUser().getUid() )){
+                            listings.add(listing);
+                            listingID.add(snapShot.getKey());
+                        }
+                    }
+                    Log.d("OwnerPastListActivity","Booking Snapshot called");
+                    System.out.println(listing);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
 
+
+
+        //TODO access coffee shop list and load it in the list
+
+
+
+        adapter.notifyDataSetChanged();
+    }
 
     //TODO finish onActivityResult
 

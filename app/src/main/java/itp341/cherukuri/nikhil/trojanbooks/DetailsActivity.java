@@ -21,11 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
 
-public class DetailsActivity extends AppCompatActivity implements MaterialTabListener {
+public class DetailsActivity extends AppCompatActivity  {
 
     public static final String DETAILS_CODE = "itp341.cherukuri.nikhil.trojanbooks.detailscode";
 
@@ -35,10 +32,7 @@ public class DetailsActivity extends AppCompatActivity implements MaterialTabLis
     DatabaseReference mListItemRef;
 
 
-    MaterialTabHost tabHost;
-    //ViewPager viewPager;
-    ViewPagerAdapter androidAdapter;
-    Toolbar toolBar;
+
 
     ImageView imageView;
     EditText etBookName;
@@ -120,75 +114,8 @@ public class DetailsActivity extends AppCompatActivity implements MaterialTabLis
 
 
         //android toolbar
-        toolBar = (android.support.v7.widget.Toolbar) this.findViewById(R.id.toolBar);
-        this.setSupportActionBar(toolBar);
 
-        //tab host
-        tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
-        // viewPager = (ViewPager) this.findViewById(R.id.viewPager);
-
-        //adapter view
-        androidAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        // viewPager.setAdapter(androidAdapter);
-//        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-//            @Override
-//            public void onPageSelected(int tabposition) {
-//                tabHost.setSelectedNavigationItem(tabposition);
-//            }
-//        });
-
-        //for tab position
-        for (int j = 1; j < androidAdapter.getCount(); j++) {
-            tabHost.addTab(
-                    tabHost.newTab()
-                            .setText(androidAdapter.getPageTitle(j))
-                            .setTabListener(this)
-            );
-        }
     }
 
-    //tab on selected
-    @Override
-    public void onTabSelected(MaterialTab materialTab) {
 
-        //viewPager.setCurrentItem(materialTab.getPosition());
-        int pos = materialTab.getPosition();
-        Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
-    }
-
-    //tab on reselected
-    @Override
-    public void onTabReselected(MaterialTab materialTab) {
-        int pos = materialTab.getPosition();
-        Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
-    }
-
-    //tab on unselected
-    @Override
-    public void onTabUnselected(MaterialTab materialTab) {
-        int pos = materialTab.getPosition();
-        Toast.makeText(getApplicationContext(), "Unselected Pos = " + pos, Toast.LENGTH_LONG).show();
-    }
-
-    // view pager adapter
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
-        public ViewPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        public Fragment getItem(int num) {
-            return new MakePostFragment();
-        }
-
-        @Override
-        public int getCount() {
-            return 4;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int tabposition) {
-            return "Tab " + tabposition;
-        }
-    }
 }
