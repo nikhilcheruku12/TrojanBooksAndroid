@@ -104,7 +104,15 @@ public class DetailsActivity extends AppCompatActivity implements MaterialTabLis
                     classCode = "N/A";
 
                 Listing listing = new Listing(bookName,authorName,ISBN,googlePrice,listPrice,classCode, imageUrl,buying, userID);
-                mDatabase.child("listings").child(userID).setValue(listing);
+               // mDatabase.child("listings").child(userID).setValue(listing);
+
+                DatabaseReference postsRef = mDatabase.child("listings");
+
+                DatabaseReference newPostRef = postsRef.push();
+                newPostRef.setValue(listing);
+
+// We can also chain the two calls together
+                //postsRef.push().setValueAsync(new Post("alanisawesome", "The Turing Machine"));
                 finish();
             }
         });

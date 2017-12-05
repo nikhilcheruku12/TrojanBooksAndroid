@@ -40,6 +40,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     ListView listView;
     DatabaseReference mDatabase;
     DatabaseReference mListItemRef;
+    List<Listing> listings;
     //TODO create array and adapter
 //    private ArrayAdapter<CoffeeShop> adapter;
     private BookAdapter adapter;
@@ -68,14 +69,23 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         Log.d(TAG, "onCreateView");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mListItemRef = mDatabase.child("listing");
+        mListItemRef = mDatabase.child("listings");
         //find views
         //buttonAdd = (Button) v.findViewById(R.id.button_add);
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        System.out.println(mListItemRef.toString());
+        listings = new ArrayList<>();
+        mListItemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Listing post = dataSnapshot.getValue(Listing.class);
-                System.out.println(post);
+               // Listing post = dataSnapshot.getValue(Listing.class);
+                //System.out.println(post);
+
+                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                    Listing listing = snapShot.getValue(Listing.class);
+                    listings.add(listing);
+                    Log.d("OwnerPastListActivity","Booking Snapshot called");
+                    System.out.println(listing);
+                }
             }
 
             @Override
@@ -88,7 +98,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 
 
         //TODO access coffee shop list and load it in the list
-        List<Listing> listings = new ArrayList<>();
+
         System.out.println("listings size = " + listings.size());
 //        adapter = new ArrayAdapter<CoffeeShop>(getContext(), android.R.layout.simple_list_item_1, shops);
         adapter = new BookAdapter(getActivity(), R.layout.post_row, listings);
