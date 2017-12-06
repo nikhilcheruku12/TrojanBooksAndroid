@@ -82,14 +82,13 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selling"
+            android:text="@string/sellingButton"
             android:layout_weight="1"
-            android:checked="true"
             android:id="@+id/sellingButton"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buying"
+            android:text="@string/buyingButton"
             android:layout_weight="1"
             android:id="@+id/buyingButton"/>
 

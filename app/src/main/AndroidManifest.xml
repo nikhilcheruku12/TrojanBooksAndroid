@@ -19,11 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Search_Listing" />
         <activity android:name=".MakeListingActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".TabbedActivity" />
-        <activity android:name=".ShowListingsActivity" />
         <activity android:name=".EditListingActivity"></activity>
     </application>
 

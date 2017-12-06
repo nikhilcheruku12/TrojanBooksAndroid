@@ -28,4 +28,11 @@
 
     <string name="prompt_text"> Search for book through book name, ISBN or author to make a post </string>
     <string name="prompt_text2"> Search for listing through book name, ISBN or author </string>
+    <string name="SignOutText"> Sign Out</string>
+
+    <string name="buyingButton">Buying</string>
+    <string name="sellingButton">Selling</string>
+    <string name="deleteButton">Delete</string>
+
+    <string name="postButton">Post</string>
 </resources>

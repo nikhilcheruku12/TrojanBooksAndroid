@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG ="MainActivity" ;
     SignInButton button;
     FirebaseAuth mAuth;
+    Button signOutButton;
     public static final int RC_SIGN_IN = 0;
     GoogleSignInClient mGoogleSignInClient;
     @Override
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (SignInButton) findViewById(R.id.sign_in_button);
-
+        signOutButton = (Button) findViewById(R.id.signout);
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -50,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 signIn();
             }
         });
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    // ...
+                    case R.id.signout:
+                        signOut();
+                        break;
+                    // ...
+                }
+            }
+        });
     }
 
     private void signIn() {
@@ -57,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "You have been signed out!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
     @Override
     protected void onStart() {
         super.onStart();

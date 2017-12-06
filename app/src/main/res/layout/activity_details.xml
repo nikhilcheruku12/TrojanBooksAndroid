@@ -71,7 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/radioGroup"
         android:id="@+id/buttonFinish"
-        android:text="Confirm"/>
+        android:text="@string/postButton"/>
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -83,13 +83,13 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selling"
+            android:text="@string/sellingButton"
             android:layout_weight="1"
             android:checked="true"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buying"
+            android:text="@string/buyingButton"
             android:layout_weight="1"
             android:id="@+id/buyingButton"/>
 

@@ -30,7 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/promptText"
-        android:text="@string/prompt_text"/>
+        android:text="@string/prompt_text"
+        android:textSize="17dp"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
