@@ -57,6 +57,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     public int fragment_container_id;
     private int currentPos = 0;
     MaterialTabHost tabHost;
+    TextView textView;
     //ViewPager viewPager;
     ViewPagerAdapter androidAdapter;
     Toolbar toolBar;
@@ -74,7 +75,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_listing);
-
+        textView = (TextView) findViewById(R.id.promptText);
         // Initialize all the view variables.
        // mBookInput = (EditText)findViewById(R.id.etISBN);
         fragment_container_id = R.id.fragment_container;
@@ -211,19 +212,22 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     //tab on selected
     @Override
     public void onTabSelected(MaterialTab materialTab) {
-
+       // materialTab.setAccentColor(R.color.colorAccent);
         //viewPager.setCurrentItem(materialTab.getPosition());
         int pos = materialTab.getPosition();
-        Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
+
 
         if( pos == 0){
             currentPos = 0;
+            textView.setText(getResources().getText(R.string.prompt_text));
             inflateFragment();
         }
         if( pos == 1){
 //            Intent i = new Intent(this, ShowListingsActivity.class);
 //            startActivity(i);
             currentPos = 1;
+            textView.setText(getResources().getText(R.string.prompt_text2));
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
@@ -235,6 +239,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
             fragmentTransaction.commit();
         } else if (pos == 2){
             currentPos = 2;
+            textView.setText(getResources().getText(R.string.prompt_text2));
             Bundle bundle = new Bundle();
             bundle.putString("params", "My String data");
             FragmentManager fm = getSupportFragmentManager();
@@ -251,18 +256,21 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     //tab on reselected
     @Override
     public void onTabReselected(MaterialTab materialTab) {
+       // materialTab.setAccentColor(R.color.colorAccent);
         int pos = materialTab.getPosition();
-        Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
 
 
         if( pos == 0){
             currentPos = 0;
+            textView.setText(getResources().getText(R.string.prompt_text));
             inflateFragment();
         }
         if( pos == 1){
 //            Intent i = new Intent(this, ShowListingsActivity.class);
 //            startActivity(i);
             currentPos = 1;
+            textView.setText(getResources().getText(R.string.prompt_text2));
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
@@ -274,6 +282,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
             fragmentTransaction.commit();
         } else if (pos == 2){
             currentPos = 2;
+            textView.setText(getResources().getText(R.string.prompt_text2));
             Bundle bundle = new Bundle();
             bundle.putString("params", "My String data");
             FragmentManager fm = getSupportFragmentManager();
@@ -292,6 +301,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     public void onTabUnselected(MaterialTab materialTab) {
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Unselected Pos = " + pos, Toast.LENGTH_LONG).show();
+       // materialTab.setAccentColor(R.color.colorPrimary);
     }
 
     // view pager adapter

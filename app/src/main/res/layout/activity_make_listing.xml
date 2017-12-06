@@ -10,7 +10,6 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
@@ -27,6 +26,11 @@
         app:accentColor="@color/colorAccent"
         app:primaryColor="@color/colorPrimary" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/promptText"
+        android:text="@string/prompt_text"/>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@
     <item android:id="@+id/menuSearch"
           android:title="Searchby book name, author name or ISBN"
           android:icon = "@android:drawable/ic_menu_search"
+          android:tooltipText="Search by book name, author name or ISBN"
           app:actionViewClass="android.widget.SearchView"
           app:showAsAction="always"
     ></item>
