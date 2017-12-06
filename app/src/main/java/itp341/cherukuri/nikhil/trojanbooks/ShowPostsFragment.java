@@ -79,23 +79,16 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_make_post, container, false);
 
-        System.out.println("Enters makePosFragemnt3");
-        Log.d(TAG, "onCreateView");
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mListItemRef = mDatabase.child("listings");
-        //find views
-        //buttonAdd = (Button) v.findViewById(R.id.button_add);
-        System.out.println(" mListItemRedf: " + mListItemRef.toString());
+
         listings = new ArrayList<>();
         listingID = new ArrayList<>();
         mListItemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               // Listing post = dataSnapshot.getValue(Listing.class);
-                //System.out.println(post);
-                //listings = new ArrayList<>();
-                //listingID = new ArrayList<>();
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
                     Listing listing = snapShot.getValue(Listing.class);
                     if(mParam1 == null){
@@ -125,11 +118,10 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 
                             else{
                                 if(contains(listing,query)){
-                                    System.out.println("Contains printed true");
+
                                     listings.add(listing);
                                     listingID.add(snapShot.getKey());
                                 } else{
-                                    System.out.println("Contains printed false");
                                 }
                             }
                         }

@@ -88,6 +88,10 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         toolBar = (android.support.v7.widget.Toolbar) this.findViewById(R.id.toolBar);
         this.setSupportActionBar(toolBar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolBar.setTitle("");
+        toolBar.setSubtitle("");
         //tab host
         tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
        // viewPager = (ViewPager) this.findViewById(R.id.viewPager);
