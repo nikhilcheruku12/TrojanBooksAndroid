@@ -25,9 +25,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -48,13 +53,18 @@ import it.neokree.materialtabs.MaterialTabListener;
 public class MakeListingActivity extends AppCompatActivity implements MaterialTabListener {
 
     // Variables for the search input field, and results TextViews.
-    private EditText mBookInput;
+    //private EditText mBookInput;
     public int fragment_container_id;
-
+    private int currentPos = 0;
     MaterialTabHost tabHost;
     //ViewPager viewPager;
     ViewPagerAdapter androidAdapter;
     Toolbar toolBar;
+    ShowPostsFragment.BookAdapter adapter;
+
+    Fragment fragment1;
+    Fragment fragment2;
+    Fragment fragment3;
     /**
      * Initializes the activity.
      *
@@ -66,7 +76,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         setContentView(R.layout.activity_make_listing);
 
         // Initialize all the view variables.
-        mBookInput = (EditText)findViewById(R.id.etISBN);
+       // mBookInput = (EditText)findViewById(R.id.etISBN);
         fragment_container_id = R.id.fragment_container;
         // Find the toolbar view inside the activity layout
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,16 +125,13 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         fragmentTransaction.commit();
     }
 
-    /**
-     * Gets called when the user pushes the "Search Books" button
-     *
-     * @param view The view (Button) that was clicked.
-     */
-    public void searchBooks(View view) {
+
+
+    public void searchBooks(String queryString) {
         // Get the search string from the input field.
 
         BookSingleton.getInstance().erase();
-        String queryString = mBookInput.getText().toString();
+
 
         // Hide the keyboard when the button is pushed.
         InputMethodManager inputManager = (InputMethodManager)
@@ -141,7 +148,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
-            new FetchBook(mBookInput, this).execute(queryString);
+            new FetchBook(this).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {
@@ -155,6 +162,47 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.menu_search,menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+
+        SearchView searchView = (SearchView)item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                System.out.println("Enters Text Submit");
+                if(currentPos == 0 ){
+                    System.out.println("Enters Text Submit currentPos = 0");
+                    searchBooks(s);
+                } else if ( currentPos == 1 || currentPos == 2){
+                    //adapter.getFilter().filter(s);
+                    Bundle bundle = new Bundle();
+                    if(currentPos == 2)
+                    bundle.putString("params", "My String data");
+
+                    bundle.putString("params2",s);
+                    FragmentManager fm = getSupportFragmentManager();
+
+                    Fragment   f = ShowPostsFragment.newInstance();
+                    f.setArguments(bundle);
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, f);
+                    fragmentTransaction.commit();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                System.out.println("Enters TextChange");
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
     //tab on selected
     @Override
@@ -163,9 +211,15 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
         //viewPager.setCurrentItem(materialTab.getPosition());
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Pos = " + pos, Toast.LENGTH_LONG).show();
+
+        if( pos == 0){
+            currentPos = 0;
+            inflateFragment();
+        }
         if( pos == 1){
 //            Intent i = new Intent(this, ShowListingsActivity.class);
 //            startActivity(i);
+            currentPos = 1;
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
@@ -176,7 +230,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
             fragmentTransaction.replace(R.id.fragment_container, f);
             fragmentTransaction.commit();
         } else if (pos == 2){
-
+            currentPos = 2;
             Bundle bundle = new Bundle();
             bundle.putString("params", "My String data");
             FragmentManager fm = getSupportFragmentManager();
@@ -195,9 +249,16 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
     public void onTabReselected(MaterialTab materialTab) {
         int pos = materialTab.getPosition();
         Toast.makeText(getApplicationContext(), "Reselected os = " + pos, Toast.LENGTH_LONG).show();
+
+
+        if( pos == 0){
+            currentPos = 0;
+            inflateFragment();
+        }
         if( pos == 1){
 //            Intent i = new Intent(this, ShowListingsActivity.class);
 //            startActivity(i);
+            currentPos = 1;
             FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.fragment_container);
 
@@ -208,6 +269,7 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
             fragmentTransaction.replace(R.id.fragment_container, f);
             fragmentTransaction.commit();
         } else if (pos == 2){
+            currentPos = 2;
             Bundle bundle = new Bundle();
             bundle.putString("params", "My String data");
             FragmentManager fm = getSupportFragmentManager();

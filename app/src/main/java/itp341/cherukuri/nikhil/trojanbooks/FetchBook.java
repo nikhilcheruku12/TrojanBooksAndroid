@@ -47,7 +47,7 @@ import java.net.URL;
 public class FetchBook extends AsyncTask<String,Void,String> {
 
     // Variables for the search input field, and results TextViews
-    private EditText mBookInput;
+
 
     private MakeListingActivity mMakeListingActivity;
     public static  final String priceAvailable = "FOR_SALE_AND_RENTAL";
@@ -56,8 +56,8 @@ public class FetchBook extends AsyncTask<String,Void,String> {
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(EditText bookInput, MakeListingActivity activity) {
-        this.mBookInput = bookInput;
+    public FetchBook( MakeListingActivity activity) {
+
 
         this.mMakeListingActivity = activity;
     }

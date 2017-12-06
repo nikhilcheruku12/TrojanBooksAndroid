@@ -45,6 +45,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
     List<Listing> listings;
     List<String> listingID;
     String mParam1 = null;
+    String query = null;
     //TODO create array and adapter
 //    private ArrayAdapter<CoffeeShop> adapter;
     private BookAdapter adapter;
@@ -69,6 +70,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString("params");
+            query = getArguments().getString("params2");
         }
     }
 
@@ -97,20 +99,47 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
                     Listing listing = snapShot.getValue(Listing.class);
                     if(mParam1 == null){
-                        listings.add(listing);
-                        listingID.add(snapShot.getKey());
+                        if(query == null){
+                            listings.add(listing);
+                            listingID.add(snapShot.getKey());
+                        }
+
+                        else{
+                            if(contains(listing,query)){
+                                System.out.println("Contains printed true");
+                                listings.add(listing);
+                                listingID.add(snapShot.getKey());
+                            } else{
+                                System.out.println("Contains printed false");
+                            }
+                        }
                     }
 
                     else{
                         if(listing.getUserID().equals( FirebaseAuth.getInstance().getCurrentUser().getUid() )){
-                            listings.add(listing);
-                            listingID.add(snapShot.getKey());
+
+                            if(query == null){
+                                listings.add(listing);
+                                listingID.add(snapShot.getKey());
+                            }
+
+                            else{
+                                if(contains(listing,query)){
+                                    System.out.println("Contains printed true");
+                                    listings.add(listing);
+                                    listingID.add(snapShot.getKey());
+                                } else{
+                                    System.out.println("Contains printed false");
+                                }
+                            }
                         }
                     }
                     Log.d("OwnerPastListActivity","Booking Snapshot called");
                     System.out.println(listing);
                 }
+                //adapter.getFilter().filter("calculus");
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -128,7 +157,8 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 //        adapter = new ArrayAdapter<CoffeeShop>(getContext(), android.R.layout.simple_list_item_1, shops);
         adapter = new BookAdapter(getActivity(), R.layout.post_row, listings);
         listView.setAdapter(adapter);
-
+        MakeListingActivity ma = (MakeListingActivity) getActivity() ;
+        ma.adapter = adapter;
         adapter.notifyDataSetChanged();
 
         //TODO create listview item click listener
@@ -151,63 +181,24 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
         return v;
     }
 
+    private boolean contains (Listing listing, String s){
+        s = s.toLowerCase().trim();
+        if(listing.getISBN().toLowerCase().trim().contains(s)) return true;
+        if(listing.getAuhtorName().toLowerCase().trim().contains(s)) return true;
+        if(listing.getBookName().toLowerCase().trim().contains(s)) return true;
+        if(listing.getClassCode().toLowerCase().trim().contains(s)) return true;
+        return false;
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*mDatabase = FirebaseDatabase.getInstance().getReference();
-        mListItemRef = mDatabase.child("listings");
-        //find views
-        //buttonAdd = (Button) v.findViewById(R.id.button_add);
-        System.out.println(" mListItemRedf: " + mListItemRef.toString());
-        listings = new ArrayList<>();
-        listingID = new ArrayList<>();
-        mListItemRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Listing post = dataSnapshot.getValue(Listing.class);
-                //System.out.println(post);
-                //listings = new ArrayList<>();
-                //listingID = new ArrayList<>();
-                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
-                    Listing listing = snapShot.getValue(Listing.class);
-                    if(mParam1 == null){
-                        listings.add(listing);
-                        listingID.add(snapShot.getKey());
-                    }
-
-                    else{
-                        if(listing.getUserID().equals( FirebaseAuth.getInstance().getCurrentUser().getUid() )){
-                            listings.add(listing);
-                            listingID.add(snapShot.getKey());
-                        }
-                    }
-                    Log.d("OwnerPastListActivity","Booking Snapshot called");
-                    System.out.println(listing);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-
-
-
-        //TODO access coffee shop list and load it in the list
-
-
-
-        adapter.notifyDataSetChanged();*/
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
     }
 
     //TODO finish onActivityResult
 
-    private class BookAdapter extends ArrayAdapter<Listing> {
+    public class BookAdapter extends ArrayAdapter<Listing> {
         //if youre using an adapter with ANY database, typically you need an id
 
 
