@@ -24,7 +24,7 @@
     <string name="text_list_price">Price: </string>
 
     <string name="save_button"> Save </string>
-    <string name = "delete_button"> DELETE </string>
+    <string name="delete_button"> DELETE </string>
 
     <string name="prompt_text"> Search for book through book name, ISBN or author to make a post </string>
     <string name="prompt_text2"> Search for listing through book name, ISBN or author </string>

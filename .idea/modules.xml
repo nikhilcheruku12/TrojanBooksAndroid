@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TrojanBooks.iml" filepath="$PROJECT_DIR$/TrojanBooks.iml" />
       <module fileurl="file://$PROJECT_DIR$/TrojanBooksAndroid.iml" filepath="$PROJECT_DIR$/TrojanBooksAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

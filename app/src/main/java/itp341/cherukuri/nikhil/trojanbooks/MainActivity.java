@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         {
            /* Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
             startActivity(i);*/
-           Intent i = new Intent(getApplicationContext(), MakeListingActivity.class);
+           Intent i = new Intent(getApplicationContext(), TabbedActivity.class);
            startActivity(i);
         }
     }

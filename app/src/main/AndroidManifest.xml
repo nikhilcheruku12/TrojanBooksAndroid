@@ -22,7 +22,7 @@
         <activity android:name=".MakeListingActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".TabbedActivity" />
-        <activity android:name=".EditListingActivity"></activity>
+        <activity android:name=".EditListingActivity" />
     </application>
 
 </manifest>

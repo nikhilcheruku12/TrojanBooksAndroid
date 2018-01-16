@@ -151,9 +151,9 @@ public class MakeListingActivity extends AppCompatActivity implements MaterialTa
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment f = fm.findFragmentById(R.id.fragment_container);
-            new FetchBook(this).execute(queryString);
+//            FragmentManager fm = getSupportFragmentManager();
+//            Fragment f = fm.findFragmentById(R.id.fragment_container);
+//            new FetchBook(this).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {

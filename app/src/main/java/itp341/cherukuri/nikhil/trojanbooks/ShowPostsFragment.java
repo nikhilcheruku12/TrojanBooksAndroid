@@ -149,7 +149,7 @@ public class ShowPostsFragment extends android.support.v4.app.Fragment {
 //        adapter = new ArrayAdapter<CoffeeShop>(getContext(), android.R.layout.simple_list_item_1, shops);
         adapter = new BookAdapter(getActivity(), R.layout.post_row, listings);
         listView.setAdapter(adapter);
-        MakeListingActivity ma = (MakeListingActivity) getActivity() ;
+        TabbedActivity ma = (TabbedActivity) getActivity() ;
         ma.adapter = adapter;
         adapter.notifyDataSetChanged();
 

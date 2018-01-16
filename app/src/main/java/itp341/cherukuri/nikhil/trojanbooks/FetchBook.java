@@ -49,17 +49,17 @@ public class FetchBook extends AsyncTask<String,Void,String> {
     // Variables for the search input field, and results TextViews
 
 
-    private MakeListingActivity mMakeListingActivity;
+    private TabbedActivity mTabbedActivity;
     public static  final String priceAvailable = "FOR_SALE_AND_RENTAL";
     public static  final String priceNotAvailable = "NOT_FOR_SALE";
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook( MakeListingActivity activity) {
+    public FetchBook(TabbedActivity activity) {
 
 
-        this.mMakeListingActivity = activity;
+        this.mTabbedActivity = activity;
     }
 
 
@@ -98,8 +98,10 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                     .appendQueryParameter(PRINT_TYPE, "books")
                     .build();
 
-            URL requestURL = new URL(builtURI.toString());
 
+
+            URL requestURL = new URL(builtURI.toString());
+            System.out.println("URL = " + builtURI.toString());
             // Open the network connection.
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -222,7 +224,7 @@ public class FetchBook extends AsyncTask<String,Void,String> {
                 i++;
             }
 
-            mMakeListingActivity.inflateFragment();
+            mTabbedActivity.refreshMakePost();
 
 
         } catch (Exception e){
